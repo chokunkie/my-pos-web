@@ -13,6 +13,7 @@
 
 const R2_BASE_URL = "https://pub-95a66e290b0b4a03ad1abcef6de8b7da.r2.dev";
 const CLOUD_FUNCTION_URL = "https://pos-api-worker.jitkhon1979.workers.dev";
+console.log("🚀 VERSION: GitHub Pages - Fixed CORS & Paths");
 
 // ... (State variables remain same)
 
