@@ -174,7 +174,8 @@ async function checkActiveOrder() {
 async function checkSession() {
     try {
         const t = Date.now();
-        const res = await fetch(`${R2_BASE_URL}/shops/${SHOP_ID}/tables/${TABLE_NO}/session.json?t=${t}`);
+        // Use Worker Proxy to avoid CORS issues from direct R2 access
+        const res = await fetch(`${CLOUD_FUNCTION_URL}/session?shopId=${SHOP_ID}&tableId=${TABLE_NO}&t=${t}`);
         if (res.ok) {
             const data = await res.json();
             SESSION_ID = data.session_id;
@@ -265,7 +266,7 @@ function startPollingCountdown() {
 async function performOneCheck() {
     try {
         const t = Date.now();
-        const res = await fetch(`${R2_BASE_URL}/shops/${SHOP_ID}/tables/${TABLE_NO}/session.json?t=${t}`);
+        const res = await fetch(`${CLOUD_FUNCTION_URL}/session?shopId=${SHOP_ID}&tableId=${TABLE_NO}&t=${t}`);
         if (res.ok) {
             const data = await res.json();
             SESSION_ID = data.session_id;
@@ -309,7 +310,8 @@ async function loadMenu() {
     // But good practice -> remove it for menu. Keep for session.
 
     try {
-        const res = await fetch(`${R2_BASE_URL}/shops/${SHOP_ID}/menu.json`);
+        // Use Worker Proxy for Menu as well
+        const res = await fetch(`${CLOUD_FUNCTION_URL}/menu?shopId=${SHOP_ID}`);
         if (res.ok) {
             const data = await res.json();
 
